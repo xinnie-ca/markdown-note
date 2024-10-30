@@ -19,6 +19,7 @@ export default function App() {
   const currentNote =
     notes.find((note) => note.id === currentNoteId) || notes[0];
   const sorted_notes = notes.sort((a, b) => b.updatedAt - a.updatedAt);
+
   React.useEffect(() => {
     const unsubscribe = onSnapshot(notesCollection, function (snapshot) {
       //sync notes with snapshot data
@@ -31,6 +32,11 @@ export default function App() {
     return unsubscribe;
   }, []);
 
+  React.useEffect(() => {
+    if (!currentNoteId) {
+      setCurrentNoteId(notes[0]?.id);
+    }
+  }, [notes]);
   async function createNewNote() {
     const newNote = {
       body: "# Type your markdown note's title here",
@@ -42,6 +48,7 @@ export default function App() {
   }
 
   async function updateNote(text) {
+    console.log(`"${currentNoteId}"`);
     const docRef = doc(db, "notes", currentNoteId);
     await setDoc(
       docRef,
