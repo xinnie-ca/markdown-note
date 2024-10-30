@@ -37,6 +37,7 @@ export default function App() {
       setCurrentNoteId(notes[0]?.id);
     }
   }, [notes]);
+
   async function createNewNote() {
     const newNote = {
       body: "# Type your markdown note's title here",
@@ -50,6 +51,7 @@ export default function App() {
   async function updateNote(text) {
     console.log(`"${currentNoteId}"`);
     const docRef = doc(db, "notes", currentNoteId);
+    console.log(text);
     await setDoc(
       docRef,
       { body: text, updatedAt: Timestamp.now() },
