@@ -165,6 +165,9 @@ hr {
 .title:hover > .delete-btn {
   display: block;
 }
+.selected-note:hover > .delete-btn {
+  color: white;
+}
 
 .trash-icon {
   cursor: pointer;
